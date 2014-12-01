@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     chrome.storage.local.get('html', function(data){
-        if(data !== undefined){
+        if(typeof data !== 'undefined'){
             document.body.innerHTML = data.html;
         }
     });

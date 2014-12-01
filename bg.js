@@ -23,17 +23,21 @@ var yifyChecker = {
         var bodyText = '';
         if(data.status === "fail"){
             bodyText += "No torrent found :(";
+                chrome.browserAction.setBadgeText({text:""});
         } else {
             var count = data.MovieCount;
             for(var i = 0; i < count; i++) {
                 var title = data.MovieList[i].MovieTitleClean + ' - ' + data.MovieList[i].Quality + ' (' + data.MovieList[i].Size + ')';
                 bodyText += '<a href="'+data.MovieList[i].TorrentUrl+'" target="_blank">'+title+'</a>';
             }
+            chrome.browserAction.setBadgeBackgroundColor({color:[204, 0, 0, 230]});
+            chrome.browserAction.setBadgeText({text:count+""});
         }
         chrome.storage.local.set({'html' : bodyText});
         var views = chrome.extension.getViews({type: "popup"});
         for (var i = 0; i < views.length; i++) {
             views[i].document.innerHTML = '';
+            views[i].document.innerHTML = bodyText;
         }
     }
 
