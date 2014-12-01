@@ -2,6 +2,8 @@
 
 A chrome extension that fetches yify torrent data on imdb movie pages
 
+![alt tag](https://raw.githubusercontent.com/emincansumer/yify-imdb-chrome-extension/master/screenshot.jpg)
+
 ## How to install
 - Open extensions on the main menu (More Tools > Extensions)
 - Check the "Developer Mode" checkbox on the top right
