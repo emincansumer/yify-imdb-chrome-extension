@@ -6,7 +6,6 @@
   "permissions": [
     "https://yts.re/",
     "tabs",
-    "activeTab",
     "webNavigation",
     "storage"
   ],
