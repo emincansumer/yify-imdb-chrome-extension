@@ -3,7 +3,7 @@
  */
 var yifyChecker = {
 
-    apiURL : "https://yts.re/api/listimdb.json?imdb_id=",
+    apiURL : "https://yts.to/api/v2/list_movies.json?query_term=",
 
     run : function(imdb_id) {
         this.requestJSON(imdb_id);
@@ -18,7 +18,7 @@ var yifyChecker = {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
                 var resp = JSON.parse(xhr.responseText);
-                yifyChecker.showTorrents(resp);
+                yifyChecker.showTorrents(resp.data);
             }
         };
         xhr.send();
@@ -29,16 +29,16 @@ var yifyChecker = {
      */
     showTorrents : function(data) {
         var bodyText = '';
-        if(data.status === "fail"){
+        if(data.movie_count === 0){
             bodyText += "No torrent found :(";
             // remove badge
             chrome.browserAction.setBadgeText({text:""});
         } else {
-            var count = data.MovieCount;
+            var count = data.movies[0].torrents.length;
             // build link
             for(var i = 0; i < count; i++) {
-                var title = data.MovieList[i].MovieTitleClean + ' - ' + data.MovieList[i].Quality + ' (' + data.MovieList[i].Size + ')';
-                bodyText += '<a href="'+data.MovieList[i].TorrentUrl+'" target="_blank">'+title+'</a>';
+                var title = data.movies[0].title + ' - ' + data.movies[0].torrents[i].quality + ' (' + data.movies[0].torrents[i].size + ')';
+                bodyText += '<a href="'+data.movies[0].torrents[i].url+'" target="_blank">'+title+'</a>';
             }
             // set badge count
             chrome.browserAction.setBadgeBackgroundColor({color:[204, 0, 0, 230]});
