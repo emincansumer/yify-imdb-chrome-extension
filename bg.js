@@ -3,7 +3,7 @@
  */
 var yifyChecker = {
 
-    apiURL : "https://yts.to/api/v2/list_movies.json?query_term=",
+    apiURL : "https://yts.ag/api/v2/list_movies.json?query_term=",
 
     run : function(imdb_id) {
         this.requestJSON(imdb_id);
